@@ -6,6 +6,7 @@ class GroceryItem {
   final int quantity;
   final Category category;
 
+  // Named Arguments
   const GroceryItem({
     required this.id,
     required this.name,
