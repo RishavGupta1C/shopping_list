@@ -22,24 +22,37 @@ class _NewItemState extends State<NewItem> {
   var _enteredQuantity = 1;
   var _selectedCategory = categories[Categories.vegetables]!;
 
-  void _saveitem() {
+  void _saveitem() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       final url = Uri.https(
         'flutter-shopping-list-dacf0-default-rtdb.firebaseio.com',
         'shopping-list.json',
       );
-      http.post(
+      // Second way to work with Futures using async and await
+      // Using await dart adds then() method behind the scenes
+      final response = await http.post(
         url,
         headers: {
           'Content-Type': 'application/json', // How the data will be formatted
         },
-        body: json.encode({
-          'name': _enteredName,
-          'quantity': _enteredQuantity,
-          'category': _selectedCategory.title,
-        }),
-      ); // encode converts data to json-formatted text
+        // encode converts data to json-formatted text
+        body: json.encode(
+          {
+            'name': _enteredName,
+            'quantity': _enteredQuantity,
+            'category': _selectedCategory.title,
+          },
+        ),
+      );
+      /*.then((response) { // First way to work with futures
+        // work with the response
+      })*/
+
+      print(response.body);
+      print(response.statusCode);
+      Navigator.of(context).pop();
+
       // Navigator.of(context).pop(GroceryItem(
       //   id: DateTime.now().toString(),
       //   name: _enteredName,
