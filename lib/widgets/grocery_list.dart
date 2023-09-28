@@ -14,19 +14,11 @@ class _GroceryListState extends State<GroceryList> {
   final List<GroceryItem> _groceryItems = [];
 
   void _addItem() async {
-    final newItem = await Navigator.of(context).push<GroceryItem>(
+    await Navigator.of(context).push<GroceryItem>(
       MaterialPageRoute(
         builder: (ctx) => const NewItem(),
       ),
     );
-
-    if (newItem == null) {
-      return;
-    }
-
-    setState(() {
-      _groceryItems.add(newItem);
-    });
   }
 
   void _removeItem(GroceryItem item) {
