@@ -49,9 +49,20 @@ class _NewItemState extends State<NewItem> {
         // work with the response
       })*/
 
-      print(response.body);
-      print(response.statusCode);
-      Navigator.of(context).pop();
+      // print(response.body);
+      // print(response.statusCode);
+
+      // To get the Firebase Id
+      final Map<String, dynamic> resData = json.decode(response.body);
+
+      Navigator.of(context).pop(
+        GroceryItem(
+          id: resData['name'],
+          name: _enteredName,
+          quantity: _enteredQuantity,
+          category: _selectedCategory,
+        ),
+      );
 
       // Navigator.of(context).pop(GroceryItem(
       //   id: DateTime.now().toString(),
